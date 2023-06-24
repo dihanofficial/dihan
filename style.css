@@ -1,0 +1,164 @@
+/* Add your own custom styles here to make it more creative and interesting */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+header {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.glitch-effect {
+  position: relative;
+  font-size: 48px;
+  color: #fff;
+  animation: glitch-animation 2s infinite;
+}
+
+@keyframes glitch-animation {
+  0% {
+    transform: translate(2px, 2px);
+    text-shadow: -2px -2px #ff00ff, 2px 2px #00ffff;
+  }
+  25% {
+    transform: translate(-2px, -2px);
+    text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff;
+  }
+  50% {
+    transform: translate(2px, 2px);
+    text-shadow: -2px -2px #ff00ff, 2px 2px #00ffff;
+  }
+  75% {
+    transform: translate(-2px, -2px);
+    text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff;
+  }
+  100% {
+    transform: translate(2px, 2px);
+    text-shadow: -2px -2px #ff00ff, 2px 2px #00ffff;
+  }
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+  background-color: #333;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+  background-color: #555;
+}
+
+section {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.section-heading {
+  margin-bottom: 30px;
+  font-size: 36px;
+  color: #555;
+}
+
+.project {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.project img {
+  max-width: 400px;
+  border-radius: 10px;
+}
+
+.project-details {
+  text-align: left;
+  padding-left: 20px;
+}
+
+.project-details h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.project-details p {
+  margin-bottom: 20px;
+}
+
+.project-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.project-link:hover {
+  background-color: #555;
+}
+
+.about-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-details img {
+  max-width: 200px;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+form label {
+  display: inline-block;
+  width: 100px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 300px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #555;
+}
+
+footer {
+  text-align: center;
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
