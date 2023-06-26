@@ -1,6 +1,6 @@
 <?php
-$botToken = 'YOUR_TELEGRAM_BOT_TOKEN';
-$chatId = 'YOUR_TELEGRAM_CHAT_ID';
+$botToken = '5950338973:AAEMc2zBcEWKv5vPg7anK4DgIBvrWrM2nmM';
+$chatId = '1001927046640';
 
 $photo = $_FILES['photo'];
 
