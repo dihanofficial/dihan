@@ -80,30 +80,50 @@
         .upload-form input[type="submit"]:hover {
             background-color: #45a049;
         }
+
+        .thank-you-message {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="upload-form">
         <h1>Express Your Creativity</h1>
-        <form action="send_photo.php" method="post" enctype="multipart/form-data">
+        <form action="send_photo.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             <div class="upload-area" id="uploadArea">
                 <span>Drag and drop your inspiring photo here</span>
                 <span class="file-label">or</span>
                 <span class="file-label">click to select a file</span>
                 <span class="file-name"></span>
-                <input type="file" name="photo" id="photo" accept="image/*">
+                <input type="file" name="photo" id="photo" accept="image/*" required>
+                <div id="fileError" class="error-message" style="display: none;">Please select a file.</div>
             </div>
-            <input type="text" name="name" placeholder="Enter your name" required>
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <input type="tel" name="whatsapp" placeholder="Enter your WhatsApp number" required>
+            <input type="text" name="name" id="name" placeholder="Enter your name" required>
+            <input type="email" name="email" id="email" placeholder="Enter your email" required>
+            <input type="tel" name="whatsapp" id="whatsapp" placeholder="Enter your WhatsApp number" required>
             <input type="submit" value="Unleash Your Creativity">
         </form>
+
+        <div class="thank-you-message" id="thankYouMessage" style="display: none;">
+            <h2>Thank you for your submission!</h2>
+            <p>Your creativity is appreciated.</p>
+        </div>
     </div>
 
     <script>
         const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('photo');
         const fileNameLabel = document.querySelector('.file-name');
+        const thankYouMessage = document.getElementById('thankYouMessage');
+        const form = document.querySelector('form');
+        const fileError = document.getElementById('fileError');
 
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
@@ -126,6 +146,19 @@
             const file = fileInput.files[0];
             fileNameLabel.textContent = `Selected file: ${file.name}`;
         });
+
+        function validateForm() {
+            const file = fileInput.files[0];
+            if (!file) {
+                fileError.style.display = 'block';
+                return false;
+            } else {
+                fileError.style.display = 'none';
+                thankYouMessage.style.display = 'block';
+                form.style.display = 'none';
+                return true;
+            }
+        }
     </script>
 </body>
 </html>
