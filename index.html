@@ -1,76 +1,131 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Creative Portfolio</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Express Your Creativity - Photo Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .upload-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            background-color: #f9f9f9;
+        }
+
+        .upload-area span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .upload-area input[type="file"] {
+            display: none;
+        }
+
+        .upload-area .file-label {
+            color: #666;
+        }
+
+        .upload-area .file-name {
+            font-weight: bold;
+        }
+
+        .upload-form input[type="text"],
+        .upload-form input[type="email"],
+        .upload-form input[type="tel"] {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .upload-form input[type="submit"] {
+            display: block;
+            margin: 20px auto 0;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .upload-form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1 class="glitch-effect">Dihan Randila</h1>
-    <h2>Web Developer &amp; Bot Enthusiast</h2>
-  </header>
-  
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#about">About Me</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-  
-  <section id="projects">
-    <h2 class="section-heading">Featured Projects</h2>
-    <div class="project">
-      <img src="project1.jpg" alt="Project 1">
-      <div class="project-details">
-        <h3>Project 1</h3>
-        <p>A stunning web application that redefines user experience.</p>
-        <a href="#" class="project-link">Learn More</a>
-      </div>
+    <div class="upload-form">
+        <h1>Express Your Creativity</h1>
+        <form action="send_photo.php" method="post" enctype="multipart/form-data">
+            <div class="upload-area" id="uploadArea">
+                <span>Drag and drop your inspiring photo here</span>
+                <span class="file-label">or</span>
+                <span class="file-label">click to select a file</span>
+                <span class="file-name"></span>
+                <input type="file" name="photo" id="photo" accept="image/*">
+            </div>
+            <input type="text" name="name" placeholder="Enter your name" required>
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="tel" name="whatsapp" placeholder="Enter your WhatsApp number" required>
+            <input type="submit" value="Unleash Your Creativity">
+        </form>
     </div>
-    <div class="project">
-      <img src="project2.jpg" alt="Project 2">
-      <div class="project-details">
-        <h3>Project 2</h3>
-        <p>An interactive Telegram bot that brings joy and productivity.</p>
-        <a href="#" class="project-link">Learn More</a>
-      </div>
-    </div>
-  </section>
-  
-  <section id="about">
-    <h2 class="section-heading">About Me</h2>
-    <div class="about-details">
-      <img src="profile-pic.jpg" alt="Profile Picture">
-      <p>I'm Dihan Randila, a web magician who weaves digital experiences using the power of code. With a passion for Python and a flair for creativity, I bring dreams to life through beautifully crafted websites and mesmerizing Telegram bots.</p>
-    </div>
-  </section>
-  
-  <section id="contact">
-    <h2 class="section-heading">Get in Touch</h2>
-    <form action="contact.py" method="post">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required><br>
-      
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required><br>
-      
-      <label for="message">Message:</label>
-      <textarea id="message" name="message" required></textarea><br>
-      
-      <input type="submit" value="Send Message" class="btn">
-    </form>
-  </section>
-  
-  <footer>
-    <p>&copy; 2023 Dihan Randila. All rights reserved.</p>
-  </footer>
-  
-  <script src="glitch.js"></script>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('photo');
+        const fileNameLabel = document.querySelector('.file-name');
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            fileInput.files = e.dataTransfer.files;
+            fileNameLabel.textContent = `Selected file: ${file.name}`;
+        });
+
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files[0];
+            fileNameLabel.textContent = `Selected file: ${file.name}`;
+        });
+    </script>
 </body>
 </html>
-
-
-
-
