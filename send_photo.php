@@ -1,6 +1,6 @@
 <?php
 $botToken = '5950338973:AAEMc2zBcEWKv5vPg7anK4DgIBvrWrM2nmM';
-$chatId = '1001927046640';
+$chatId = '-1001927046640';
 
 $photo = $_FILES['photo'];
 
