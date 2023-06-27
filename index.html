@@ -1,32 +1,164 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Photo Upload</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <title>Express Your Creativity - Photo Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .upload-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            background-color: #f9f9f9;
+        }
+
+        .upload-area span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .upload-area input[type="file"] {
+            display: none;
+        }
+
+        .upload-area .file-label {
+            color: #666;
+        }
+
+        .upload-area .file-name {
+            font-weight: bold;
+        }
+
+        .upload-form input[type="text"],
+        .upload-form input[type="email"],
+        .upload-form input[type="tel"] {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .upload-form input[type="submit"] {
+            display: block;
+            margin: 20px auto 0;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .upload-form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .thank-you-message {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Photo Upload</h1>
-    <form id="uploadForm" enctype="multipart/form-data">
-        <label for="nameInput">Name:</label>
-        <input type="text" name="name" id="nameInput" required>
-        <br>
+    <div class="upload-form">
+        <h1>Express Your Creativity</h1>
+        <form action="send_photo.php" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            <div class="upload-area" id="uploadArea">
+                <span>Drag and drop your inspiring photo here</span>
+                <span class="file-label">or</span>
+                <span class="file-label">click to select a file</span>
+                <span class="file-name"></span>
+                <input type="file" name="photo" id="photo" accept="image/*" required>
+                <div id="fileError" class="error-message" style="display: none;">Please select a file.</div>
+            </div>
+            <input type="text" name="name" id="name" placeholder="Enter your name" required>
+            <input type="email" name="email" id="email" placeholder="Enter your email" required>
+            <input type="tel" name="whatsapp" id="whatsapp" placeholder="Enter your WhatsApp number" required>
+            <input type="submit" value="Unleash Your Creativity">
+        </form>
 
-        <label for="whatsappInput">WhatsApp Number:</label>
-        <input type="text" name="whatsapp" id="whatsappInput" required>
-        <br>
+        <div class="thank-you-message" id="thankYouMessage" style="display: none;">
+            <h2>Thank you for your submission!</h2>
+            <p>Your creativity is appreciated.</p>
+        </div>
+    </div>
 
-        <label for="emailInput">Email:</label>
-        <input type="email" name="email" id="emailInput" required>
-        <br>
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('photo');
+        const fileNameLabel = document.querySelector('.file-name');
+        const thankYouMessage = document.getElementById('thankYouMessage');
+        const form = document.querySelector('form');
+        const fileError = document.getElementById('fileError');
 
-        <label for="photoInput">Photo:</label>
-        <input type="file" name="photo" id="photoInput" required>
-        <br>
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
 
-        <button type="submit">Upload</button>
-    </form>
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
 
-    <script src="main.js"></script>
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            fileInput.files = e.dataTransfer.files;
+            fileNameLabel.textContent = `Selected file: ${file.name}`;
+        });
+
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files[0];
+            fileNameLabel.textContent = `Selected file: ${file.name}`;
+        });
+
+        function validateForm() {
+            const file = fileInput.files[0];
+            if (!file) {
+                fileError.style.display = 'block';
+                return false;
+            } else {
+                fileError.style.display = 'none';
+                thankYouMessage.style.display = 'block';
+                form.style.display = 'none';
+                return true;
+            }
+        }
+    </script>
 </body>
 </html>
